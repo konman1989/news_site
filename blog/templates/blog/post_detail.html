@@ -1,0 +1,43 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<article class="media content-section">
+  <div class="media-body">
+    <div class="article-metadata">
+      <small class="text-muted">by {{ object.author.username }}
+        {{ object.created_on|date:"F d, Y" }}</small>
+    </div>
+    <h2 class="article-title">{{ object.title }}</h2>
+    <p class="article-content">{{ object.content|safe }}</p>
+  </div>
+</article>
+<div class="col-md-12 card mb-4  mt-3 ">
+  <div class="card-body">
+    <!-- comments -->
+    <h4>{{ comments.count }} Comments</h4>
+
+    {% for comment in comments %}
+    <div class="comments" style="padding: 10px;">
+      <p class="font-weight-bold">
+        {{ comment.author }}
+        <span class="text-muted font-weight-normal">
+              {{ comment.created_on }}
+        </span>
+      </p>
+      {{ comment.content | linebreaks }}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<div class="col-md-12 card mb-4  mt-3 ">
+  <div class="card-body">
+    <h4>Leave a comment</h4>
+    <form method="post" style="margin-top: 1.5em;">
+      {{ comment_form|crispy}}
+      {% csrf_token %}
+      <button type="submit" class="btn btn-outline-info">Submit</button>
+    </form>
+  </div>
+</div>
+
+{% endblock content %}
