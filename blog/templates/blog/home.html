@@ -8,7 +8,7 @@
           <small class="text-muted">{{ post.created_on|date:"F d, Y" }}</small>
         </div>
         <h2><a class="article-title" href="{% url 'post_view' post.id %}">{{ post.title }}</a></h2>
-        <p class="article-content">{{ post.content|safe }}</p>
+        <p class="article-content">{{ post.content|safe|slice:":200"  }}</p>
         <a href="{% url 'post_view' post.id  %}" class="btn btn-outline-info">Read more</a>
       </div>
     </article>

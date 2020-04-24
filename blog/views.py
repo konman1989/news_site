@@ -6,6 +6,7 @@ from django.views.generic.detail import SingleObjectMixin
 
 from .models import Post, Comment
 from .forms import WysiwygForm, CommentForm
+from .utils import send_new_comment_email
 
 
 class PostListView(ListView):
@@ -49,6 +50,8 @@ class CommentCreateView(SingleObjectMixin, FormView):
         form.instance.post = self.object
         if form.is_valid():
             form.save()
+            send_new_comment_email(comment=form.cleaned_data,
+                                   receiver=self.object.author.email)
         return super().form_valid(form)
 
     def get_success_url(self):

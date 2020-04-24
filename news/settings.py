@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from datetime import timedelta
 
 from dotenv import load_dotenv
 
@@ -56,8 +57,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'news.urls'
-
-AUTH_USER_MODEL = 'users.CustomUser'
 
 TEMPLATES = [
     {
@@ -126,6 +125,11 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+AUTH_USER_MODEL = 'users.CustomUser'
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.AllowAllUsersModelBackend',
+]
+
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 SUMMERNOTE_CONFIG = {
@@ -136,3 +140,12 @@ SUMMERNOTE_CONFIG = {
 
 LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
+
+EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
+SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+EMAIL_HOST_UER = os.environ['EMAIL_HOST_USER']
+PASSWORD_RESET_TIMEOUT_DAYS = 3
+
+
+
