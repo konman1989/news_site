@@ -1,21 +1,20 @@
-from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from django.contrib.auth.views import LoginView
+from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_decode
 from django.utils.encoding import force_text
 from django.views import View
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
+from .emails import send_account_confirmation_email
 from .models import CustomUser
 from .tokens import account_activation_token
 from .forms import RegistrationForm, CustomLoginForm
-from .utils import send_account_confirmation_email
 
 
 class Register(CreateView):
     form_class = RegistrationForm
-    success_url = reverse_lazy('login')
     template_name = 'users/register.html'
 
     def post(self, request, *args, **kwargs):
@@ -23,13 +22,15 @@ class Register(CreateView):
         if form.is_valid():
             user = form.save()
             user.save()
-            send_account_confirmation_email(user, request)
+            current_site = get_current_site(request)
+            send_account_confirmation_email.delay(user.pk, str(current_site))
             messages.success(request,
                              'Your account has been created but you need to '
                              'activate it first. You can find the link in '
                              'your email.')
 
             return render(request, 'users/register_confirmation.html')
+        return render(request, 'users/register.html', {'form': form})
 
 
 class ConfirmRegistrationView(View):

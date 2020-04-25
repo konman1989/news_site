@@ -4,9 +4,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import reverse
 from django.views.generic.detail import SingleObjectMixin
 
+from .emails import send_new_comment_email
 from .models import Post, Comment
 from .forms import WysiwygForm, CommentForm
-from .utils import send_new_comment_email
 
 
 class PostListView(ListView):
@@ -50,8 +50,8 @@ class CommentCreateView(SingleObjectMixin, FormView):
         form.instance.post = self.object
         if form.is_valid():
             form.save()
-            send_new_comment_email(comment=form.cleaned_data,
-                                   receiver=self.object.author.email)
+            send_new_comment_email.delay(comment=form.cleaned_data,
+                                         receiver=self.object.author.email)
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -67,6 +67,3 @@ class PostComment(View):
     def post(self, request, *args, **kwargs):
         view = CommentCreateView.as_view()
         return view(request, *args, **kwargs)
-
-
-

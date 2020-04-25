@@ -2,7 +2,10 @@ from django.conf import settings
 from django.core.mail import EmailMessage
 from django.template.loader import get_template
 
+from news.celery import app
 
+
+@app.task
 def send_new_comment_email(comment, receiver):
     message = get_template('blog/comment_email.html').render(comment)
 

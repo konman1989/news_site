@@ -23,7 +23,7 @@ class RegistrationForm(UserCreationForm):
         date = self.cleaned_data['date_of_birth']
         if date is not None:
             if date > datetime.date.today():
-                raise ValidationError('Birthday date should be in past.')
+                raise ValidationError('Birthday date should be in the past.')
         return date
 
 

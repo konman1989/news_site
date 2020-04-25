@@ -38,8 +38,3 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
 
 
-    # TODO register by email https://www.fomfus.com/articles/how-to-use-email-as-username-for-django-authentication-removing-the-username
-#     https://medium.com/@ramykhuffash/django-authentication-with-just-an-email-and-password-no-username-required-33e47976b517
-
-# https://docs.djangoproject.com/en/3.0/topics/auth/customizing/#using-a-custom-user-model-when-starting-a-project
-
