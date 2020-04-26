@@ -3,14 +3,23 @@
 {% block content %}
 <article class="media content-section">
   <div class="media-body">
+    {% if object.status == 0 %}
+    <h2 class="article-content">The post has been created and waiting to be
+      approved.</h2>
+    {% elif object.status == 2 %}
+    <h2 class="article-content">This post has been declined and won't be
+      published.</h2>
+    {% else %}
     <div class="article-metadata">
-      <small class="text-muted">by {{ object.author.username }}
+      <small class="text-muted">by {{ object.author.first_name }}
         {{ object.created_on|date:"F d, Y" }}</small>
     </div>
     <h2 class="article-title">{{ object.title }}</h2>
     <p class="article-content">{{ object.content|safe }}</p>
+    {% endif %}
   </div>
 </article>
+
 <div class="col-md-12 card mb-4  mt-3 ">
   <div class="card-body">
     <!-- comments -->
@@ -21,8 +30,8 @@
       <p class="font-weight-bold">
         {{ comment.author }}
         <span class="text-muted font-weight-normal">
-              {{ comment.created_on }}
-        </span>
+                {{ comment.created_on }}
+          </span>
       </p>
       {{ comment.content | linebreaks }}
     </div>
@@ -39,5 +48,4 @@
     </form>
   </div>
 </div>
-
 {% endblock content %}

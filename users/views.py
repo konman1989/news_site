@@ -1,11 +1,11 @@
 from django.views.generic import CreateView
+from django.contrib import messages
 from django.contrib.auth.views import LoginView
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_decode
 from django.utils.encoding import force_text
 from django.views import View
 from django.shortcuts import render, redirect
-from django.contrib import messages
 
 from .emails import send_account_confirmation_email
 from .models import CustomUser
@@ -22,6 +22,7 @@ class Register(CreateView):
         if form.is_valid():
             user = form.save()
             user.save()
+            user.add_to_group()
             current_site = get_current_site(request)
             send_account_confirmation_email.delay(user.pk, str(current_site))
             messages.success(request,

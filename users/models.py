@@ -1,21 +1,9 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser
-from django.contrib.auth.models import PermissionsMixin
+from django.contrib.auth.models import (AbstractBaseUser,
+                                        PermissionsMixin,
+                                        Group)
 
 from .managers import CustomUserManager
-
-# class UsersGroup(Group):
-#     name = 'users'
-#
-#     class Meta:
-#         abstract = True
-#
-#
-# class EditorsGroup(Group):
-#     name = 'editors'
-#
-#     class Meta:
-#         abstract = True
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
@@ -35,6 +23,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+    def add_to_group(self):
+        group = Group.objects.get(name='Users')
+        self.groups.add(group)
 
 
 

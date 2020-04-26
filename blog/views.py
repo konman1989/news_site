@@ -55,7 +55,7 @@ class CommentCreateView(SingleObjectMixin, FormView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('post_view', kwargs={'pk': self.object.pk})
+        return reverse('post_detail', kwargs={'pk': self.object.pk})
 
 
 class PostComment(View):

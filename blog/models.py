@@ -3,12 +3,10 @@ from django.urls import reverse
 
 from users.models import CustomUser
 
+
 class PublishedManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(status=1)
-    # use_for_related_fields = True
-    # def published(self, **kwargs):
-    #     return self.filter(status=1, **kwargs)
 
 
 class Post(models.Model):
@@ -36,13 +34,13 @@ class Post(models.Model):
         return self.title
 
     def approve_post(self):
-        if self.author.is_staff:
+        if self.author.is_staff or self.author.has_perm('blog.no_moderation'):
             self.status = self.STATUS_APPROVED
             self.save()
 
     def get_absolute_url(self):
         self.approve_post()
-        return reverse('home')
+        return reverse('post_detail', kwargs={'pk': self.pk})
 
 
 class Comment(models.Model):

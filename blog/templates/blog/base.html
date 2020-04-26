@@ -1,4 +1,5 @@
 {% load static %}
+{% load filters %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,22 +9,20 @@
         content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-        crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
   <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
   {% if title %}
   <title>{{ title }}</title>
   {% else %}
-  <title>My Blog</title>
+  <title>News</title>
   {% endif %}
 </head>
 <body>
 <header class="site-header">
   <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
     <div class="container">
-      <a class="navbar-brand mr-4" href="{% url 'home' %}">My Blog</a>
+      <a class="navbar-brand mr-4" href="{% url 'home' %}">News</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse"
               data-target="#navbarToggle" aria-controls="navbarToggle"
               aria-expanded="false" aria-label="Toggle navigation">
@@ -61,18 +60,24 @@
       {% endif %}
       {% block content %}{% endblock %}
     </div>
+    {% if user.is_authenticated %}
     <div class="col-md-4">
       <div class="content-section">
-        <h3>Our Sidebar</h3>
-        <p class='text-muted'>You can put any information here you'd like.
+        <h3>My posts</h3>
+        <p class='text-muted'>All posts: {{ user.posts.all.count }}</p>
         <ul class="list-group">
-          <li class="list-group-item list-group-item-light">Latest Posts</li>
-          <li class="list-group-item list-group-item-light">Announcements</li>
-          <li class="list-group-item list-group-item-light">Calendars</li>
+          <li class="list-group-item list-group-item-light">Pending {{ user.posts|post_status:0 }}
+          </li>
+          <li class="list-group-item list-group-item-light">Approved {{ user.posts|post_status:1 }}
+          </li>
+          <li class="list-group-item list-group-item-light">Declined {{ user.posts|post_status:2 }}
+          </li>
         </ul>
-        </p>
+
       </div>
     </div>
+    {% endif %}
+
   </div>
 </main>
 
