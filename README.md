@@ -3,22 +3,24 @@
 
 This is a simple news site with different types of users - regular users, editors and administrators.
 Users' posts need to be approved by admins first, where editors' and admins' don't.
-## DB config
-To use prebuilt groups and permissions run:
+
 ```
 pip install -r requirements.txt
 ```
-python manage.py migrate
-```
-python manage.py loaddata users.json groups.json
-```
-
 ## ENV config
 ENV config can be set up by:
 ```
 cp .env-example .env
 ```
 Make sure to set all required variables.
+## DB config
+To use prebuilt groups and permissions run:
+```
+python manage.py migrate
+```
+```
+python manage.py loaddata users.json groups.json
+```
 
 ## Celery + Redis.
 This app uses Celery + Redis as brokers to send emails. Make sure to set up Redis
