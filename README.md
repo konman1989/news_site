@@ -10,7 +10,7 @@ pip install -r requirements.txt
 ```
 python manage.py migrate
 ```
-loaddata users.json groups.json
+python manage.py loaddata users.json groups.json
 ```
 
 ## ENV config
