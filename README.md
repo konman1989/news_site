@@ -4,7 +4,7 @@
 This is a simple news site with different types of users - regular users, editors and administrators.
 Users' posts need to be approved by admins first, where editors' and admins' don't.
 ## DB config
-To use a prebuilt groups and permissions run:
+To use prebuilt groups and permissions run:
 ```
 pip install -r requirements.txt
 ```
