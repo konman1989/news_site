@@ -1,44 +1,57 @@
 [
-  {
-    "model": "users.customuser",
-    "pk": 1,
-    "fields": {
-      "email": "admin@admin.com",
-      "password": "pbkdf2_sha256$180000$XNr1n1Aw6p9L$kZimvWfHTl1o843eKyaBKx4DGmVr055v/83bzrZA2PY=",
-      "first_name": "admin",
-      "last_name": "admin",
-      "date_of_birth": "1990-01-01",
-      "is_staff": true,
-      "is_superuser": true,
-      "is_active": true
-    }
-  },
-  {
-    "model": "users.customuser",
-    "pk": 2,
-    "fields": {
-      "email": "editor@editor.com",
-      "password": "pbkdf2_sha256$180000$XNr1n1Aw6p9L$kZimvWfHTl1o843eKyaBKx4DGmVr055v/83bzrZA2PY=",
-      "first_name": "editor",
-      "last_name": "editor",
-      "date_of_birth": "1990-01-01",
-      "is_staff": false,
-      "is_superuser": false,
-      "is_active": true
-    }
-  },
-  {
-    "model": "users.customuser",
-    "pk": 3,
-    "fields": {
-      "email": "user@user.com",
-      "password": "pbkdf2_sha256$180000$XNr1n1Aw6p9L$kZimvWfHTl1o843eKyaBKx4DGmVr055v/83bzrZA2PY=",
-      "first_name": "user",
-      "last_name": "user",
-      "date_of_birth": "1990-01-01",
-      "is_staff": false,
-      "is_superuser": false,
-      "is_active": true
-    }
+{
+  "model": "users.customuser",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$180000$XNr1n1Aw6p9L$kZimvWfHTl1o843eKyaBKx4DGmVr055v/83bzrZA2PY=",
+    "last_login": "2020-04-26T16:37:51.395Z",
+    "email": "admin@admin.com",
+    "date_of_birth": "1990-01-01",
+    "first_name": "admin",
+    "last_name": "admin",
+    "is_staff": true,
+    "is_superuser": true,
+    "is_active": true,
+    "groups": [],
+    "user_permissions": []
   }
+},
+{
+  "model": "users.customuser",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$180000$XNr1n1Aw6p9L$kZimvWfHTl1o843eKyaBKx4DGmVr055v/83bzrZA2PY=",
+    "last_login": "2020-04-26T16:29:43.559Z",
+    "email": "editor@editor.com",
+    "date_of_birth": "1990-01-01",
+    "first_name": "editor",
+    "last_name": "editor",
+    "is_staff": false,
+    "is_superuser": false,
+    "is_active": true,
+    "groups": [
+      2
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.customuser",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$180000$XNr1n1Aw6p9L$kZimvWfHTl1o843eKyaBKx4DGmVr055v/83bzrZA2PY=",
+    "last_login": null,
+    "email": "user@user.com",
+    "date_of_birth": "1990-01-01",
+    "first_name": "user",
+    "last_name": "user",
+    "is_staff": false,
+    "is_superuser": false,
+    "is_active": true,
+    "groups": [
+      1
+    ],
+    "user_permissions": []
+  }
+}
 ]
